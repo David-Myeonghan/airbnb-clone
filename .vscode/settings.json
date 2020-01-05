@@ -2,7 +2,7 @@
 	"python.pythonPath": "/Users/david/.local/share/virtualenvs/mybnb-rc8ujFmY/bin/python",
 	"python.linting.pylintEnabled": false,
 	"python.linting.flake8Enabled": true,
-	"python.linting.enabled": true,
+	"python.linting.enabled": false,
 	"python.formatting.provider": "black",
 	"python.linting.flake8Args": ["--max-line-length=88"]
 }
