@@ -5,11 +5,11 @@ from . import models
 # Django admin panel, fieldsets, plus custom panel
 
 # Displayed on the user admin panel
-# decorator
+# Decorator = this wants to use models.User onto CustomUserAdmin
 @admin.register(models.User)  # = admin.site.register(models.User, CustomUserAdmin)
 class CustomUserAdmin(UserAdmin):
 
-    # """ Custom User Admin """
+    """ Custom User Admin """
 
     fieldsets = UserAdmin.fieldsets + (
         (

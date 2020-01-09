@@ -1,8 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
-# Create your models here.
-class User(AbstractUser):
+# This will be translated into SQL language
+class User(AbstractUser):  # Inheritance: copy and paste AbstractUser into User class.
 
     """ Custom User Model """
 
@@ -37,3 +37,6 @@ class User(AbstractUser):
     language = models.CharField(choices=LANGUAGE_CHOICES, max_length=2, blank=True)
     currency = models.CharField(choices=CURRENCY_CHOICES, max_length=3, blank=True)
     superhost = models.BooleanField(default=False)
+
+    # def __str__(self):
+    #     return self.username
