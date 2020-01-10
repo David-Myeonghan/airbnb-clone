@@ -10,7 +10,8 @@ class ItemAdmin(admin.ModelAdmin):
     list_display = ("name", "used_by")
 
     def used_by(self, obj):
-        return obj.room_set.count()
+        return obj.rooms.count()
+        # = return obj.room_set.count()
 
 
 @admin.register(models.Room)
@@ -49,6 +50,7 @@ class RoomAdmin(admin.ModelAdmin):
         "instant_book",
         "count_amenities",
         "count_photos",
+        "total_rating",
     )
 
     ordering = ("name", "price", "bedrooms")
@@ -81,7 +83,8 @@ class RoomAdmin(admin.ModelAdmin):
     count_amenities.short_description = "Django Super Customisable"
 
     def count_photos(self, obj):
-        return obj.photo_set.count()  # make related_name!
+        return obj.photos.count()
+        # = return obj.photo_set.count()
 
 
 @admin.register(models.Photo)

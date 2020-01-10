@@ -53,8 +53,8 @@ class Photo(core_models.TimeStampedModel):
     caption = models.CharField(max_length=80)
     file = models.ImageField()
     room = models.ForeignKey(
-        "Room", on_delete=models.CASCADE
-    )  # Python reads text from top to bottom #related_name="photos"
+        "Room", related_name="photos", on_delete=models.CASCADE
+    )  # Python reads text from top to bottom
 
     def __str__(self):
         return self.caption
@@ -81,14 +81,24 @@ class Room(core_models.TimeStampedModel):
         "users.User", related_name="rooms", on_delete=models.CASCADE
     )  # many rooms - to one user # CASCADE: WATERFALL. if we delete user, rooms will be deleted together.
     room_type = models.ForeignKey(
-        "RoomType", on_delete=models.SET_NULL, null=True
-    )  # related_name = "rooms"
+        "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
+    )
     amenities = models.ManyToManyField(
-        "Amenity", blank=True
+        "Amenity", related_name="rooms", blank=True
     )  # related_name = "rooms" -> room type has "rooms"
-    facilities = models.ManyToManyField("Facility", blank=True)
-    house_rules = models.ManyToManyField("HouseRule", blank=True)
+    facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
+    house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
     # photo is needed...
 
     def __str__(self):
         return self.name
+
+    # Calculates the whole average reviews users wrote.
+    def total_rating(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        for review in all_reviews:
+            # print(review.accuracy)
+            all_ratings += review.rating_average()
+        return all_ratings / len(all_reviews)
+        # = return all_ratings / self.reviews.count()

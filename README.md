@@ -89,6 +89,7 @@ git push origin master
     - 폴인키로 연결시켜 놓은 클래스에 related_name = comment라고 해놓으면 user.comment라는 것이 comment모델에 생기는 것이 아나리 comment가 참조하고 있는 user모델에 생긴다.
     
     =>>> 따라서 참조해준 객체 입장에서 related_name을 설정해줘야 한다. 
+    =>>> 따라서 related_name을 쓸 때는 참조해준 객체 입장에서 생각한다. e.g. count_messages in conversations app.
 
     https://fabl1106.github.io/django/2019/05/27/Django-26.-%EC%9E%A5%EA%B3%A0-related_name-%EC%84%A4%EC%A0%95%EB%B0%A9%EB%B2%95.html
 
@@ -103,4 +104,23 @@ git push origin master
     >>> Amenity.objects.all()
     >>> a = amenity.objects.get(id=1)
     >>> a.room_set.all()
+
+# 8 Admins
+    - Make 'related_name' in all models.
+    
+    - Make more function in users, rooms, reviews admin panel.
+    - If you want to use some functions shown to users, not only to admin panel, you can make functions in models
+    - The functions for using only in admin panel, make functions in admin panel.
+    
+    - In reservations app, Make 'total_rating' function that calculates user's average review score.
+    - Make 'in_progress' function showing the current date is between check-in and check-out, and 'is_finished'
+
+    - In lists app, make 'count_rooms'
+
+    - In Conversations app, make
+    >>> for user in User.objects.all():
+    ...     print(user.username)
+    ... 
+    david
+    me
 
