@@ -50,3 +50,9 @@ git push origin master
     - Connected user_models, using foreign key, from users app to add a field called host in rooms app.
     - Connected RoomType to a room model using many to many field.
     - (when one needs to be connected, use foreign key. or many things need to be connected, use Many to many field)
+
+# 5 All Other Apps
+1. Set reviews' Model, and review's admin panel
+2. Set reservations' model, and admin panel
+3. Set lists' model, and admin panel
+4. Set conversations' model, and admin panel

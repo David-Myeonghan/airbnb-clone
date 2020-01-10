@@ -46,7 +46,7 @@ class HouseRule(AbstractItem):
         verbose_name_plural = "House Rules"
 
 
-# Photo -> Room -> User
+# Photo links to -> Room links to-> User
 class Photo(core_models.TimeStampedModel):
     """ Photo Model Definition """
 
