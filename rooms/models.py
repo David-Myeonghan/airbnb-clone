@@ -54,7 +54,7 @@ class Photo(core_models.TimeStampedModel):
     file = models.ImageField()
     room = models.ForeignKey(
         "Room", on_delete=models.CASCADE
-    )  # Python reads text from top to bottom
+    )  # Python reads text from top to bottom #related_name="photos"
 
     def __str__(self):
         return self.caption
@@ -78,12 +78,16 @@ class Room(core_models.TimeStampedModel):
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
     host = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE
+        "users.User", related_name="rooms", on_delete=models.CASCADE
     )  # many rooms - to one user # CASCADE: WATERFALL. if we delete user, rooms will be deleted together.
-    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
-    amenities = models.ManyToManyField("Amenity", blank=True)
-    facility = models.ManyToManyField("Facility", blank=True)
-    house_rule = models.ManyToManyField("HouseRule", blank=True)
+    room_type = models.ForeignKey(
+        "RoomType", on_delete=models.SET_NULL, null=True
+    )  # related_name = "rooms"
+    amenities = models.ManyToManyField(
+        "Amenity", blank=True
+    )  # related_name = "rooms" -> room type has "rooms"
+    facilities = models.ManyToManyField("Facility", blank=True)
+    house_rules = models.ManyToManyField("HouseRule", blank=True)
     # photo is needed...
 
     def __str__(self):

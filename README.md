@@ -24,7 +24,7 @@ git add .
 git commit -m "New"
 git push origin master
 
-#3.2
+# 3.2
 
 - Installed Pillow
 - No need to make migrations and migrate when models are changed. forms are just changed.
@@ -40,7 +40,6 @@ git push origin master
 1. to set the Room model, in settings.py in config, Add "rooms.apps.RoomsConfig" in PROJECT_APPS.
 2. set models.py in rooms
 3. set admin.py in rooms
-
 4. (before migration) make a 'core' app to manage common model fields. 
 (So that to prevent all common model from 'copy and paste' to all models that need common field('created', 'updated') in otehr apps)
     - All the other models, except user model, will be extended from 'core' model.
@@ -56,3 +55,52 @@ git push origin master
 2. Set reservations' model, and admin panel
 3. Set lists' model, and admin panel
 4. Set conversations' model, and admin panel
+
+# 6 Room admin
+1. Set RoomAdmin to add (better) filter search (list_display, list_filter, search_fields, filter_horizontal, fieldsets, ordering).
+2. Make count_amenities function
+    - A function inside of admin class gets self(RoomAdmin), and obj(current row) as a parameter
+
+# If you interact with your project using Django configuration and model?
+    1. (in your terminal) pipenv shell
+    2. python manage.py shell
+    3. (from users.models import User)
+
+    - Use these
+    - 'vars' returns dict. vars(User)
+    - 'dir' returns list
+
+    - Use User manager. this gives us the DB-abstraction API(Query set API). NO need to make SQL queries.
+    e.g. 'User.objects.all()' gives the list(Query set) that shows all users
+    
+    >>> all_user = User.objects.all()
+    >>> all_user.filter(superhost=True)
+    >>> david = User.objects.get(username="david")
+    >>> vars(david)
+    >>> dir(david)
+
+    - Set is the way that the target of the foreign key gets the element.
+    - How do we change the (name of) set? - by setting 'related_name' in model.
+    - 'related_name' is the way the target finds you.
+    - Important to understand how in the code a object is able to access to foreign keys.
+
+    - 'related_name' is for Django ORM model. ORM model is for communicating with DB without query.
+    - 따라서 몇 가지 related_name을 생성해 줄 때 알아야 할 것이 있다.
+    - 폴인키로 연결시켜 놓은 클래스에 related_name = comment라고 해놓으면 user.comment라는 것이 comment모델에 생기는 것이 아나리 comment가 참조하고 있는 user모델에 생긴다.
+    
+    =>>> 따라서 참조해준 객체 입장에서 related_name을 설정해줘야 한다. 
+
+    https://fabl1106.github.io/django/2019/05/27/Django-26.-%EC%9E%A5%EA%B3%A0-related_name-%EC%84%A4%EC%A0%95%EB%B0%A9%EB%B2%95.html
+
+    - many to many fields are not like sets.
+    >>> from rooms.models import Room
+    >>> room = Room.objects.get(pk=1)   # pk = id.
+    >>> room.amenities
+    >>> room.amenities.all(). gives query set. You can all(), count(), filter(), etc.
+    
+    - Find all rooms that have shower amenity?
+    >>> from rooms.models import Amenity
+    >>> Amenity.objects.all()
+    >>> a = amenity.objects.get(id=1)
+    >>> a.room_set.all()
+
