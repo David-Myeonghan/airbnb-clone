@@ -151,5 +151,8 @@ git push origin master
     - 'save()' is for the whole model saving, including admin panel.
     - NB. 'save_model()' is just for admin saving. 
 
+# 9 Custom Commands and Seeding
+    # Make custom commands called 'comm' in management folder in any app. 
+    - This will give us the command that I made.
 
 
