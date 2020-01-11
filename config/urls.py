@@ -15,7 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.conf import settings  # mirrors(import) settings.
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
 ]
+
+# This is different from the way we can serve the files in amazon.
+# (You won't want to save uploaded files in your server, which consumes more spaces in the server, and DB file as well.
+# and you'll have Django server, DB server, and storage server.
+if settings.DEBUG:  # if this is being developing, serve the files in uplodas folder.
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    # If url is urlpattern/media_url, it shows media_root. (connects url with folder)

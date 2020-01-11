@@ -124,3 +124,32 @@ git push origin master
     david
     me
 
+    # To make photos available, set 'MEDIA_ROOT' in settings.
+    - 'MEDIA_ROOT' should be absolute filesystem path. (Refer to 'BASE_DIR' in settings)
+    - Uploaded photos will be saved in uploads folder.
+    - set 'upload_to' to upload media files on wherever you want. (in class)
+
+    # To make photos available in browser, set 'MEDIA_URL' in settings.
+    - 'MEDIA_URL' connects media in uploads folder. (handles photos in uploads folder)
+
+    # To make photos available in browser in absolute path, not relative path, set urls.py in config.
+    - absolute path showing media file: http://127.0.0.1:8000/media/room_photos/Picture1.png
+    - This is different from the way we can serve the files in amazon.
+    - (You won't want to save uploaded files in your server, which consumes more spaces in the server, and DB file as well.
+    - and you'll have Django server, DB server, and storage server.
+
+    # make thumbnail in photo admin panel
+    - Photo is not just a path or file. It is one class that has many filed. You can see it by dir(file), or vars(file).
+    - Import and use 'mark_safe'. As Django protects the admin by preventing executing code in input field, we have to mark it safe, saying this is safe code you can execute.
+
+    # Admin more manageable
+    - Use 'raw_id_fields' for many users that you cannot just scrollable.
+    - Use 'InlineModelAdmin' to make admin in admin. to edit models on the same page as a parent model.
+
+    # Intercept the way of save() method in model. i.e. city: 's'eoul -> make 'S'eoul and save.
+    - Use 'super' when overriding save() method. 
+    - 'save()' is for the whole model saving, including admin panel.
+    - NB. 'save_model()' is just for admin saving. 
+
+
+

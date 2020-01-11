@@ -129,3 +129,9 @@ STATIC_URL = "/static/"
 
 # because I want to use my user model
 AUTH_USER_MODEL = "users.User"  # in 'users' application, use 'User' model
+
+# Join BASE_DIR + uploads => BASE_DIR/uploads
+MEDIA_ROOT = os.path.join(BASE_DIR, "uploads")
+
+MEDIA_URL = "/media/"  # shouldn't be same (name) with the MEDIA_ROOT directory.
+# "media/" will give relative path.

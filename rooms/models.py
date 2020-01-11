@@ -51,7 +51,8 @@ class Photo(core_models.TimeStampedModel):
     """ Photo Model Definition """
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")
+    # Uploads phots in 'room_photos' folder in 'uploads' folder
     room = models.ForeignKey(
         "Room", related_name="photos", on_delete=models.CASCADE
     )  # Python reads text from top to bottom
@@ -92,6 +93,10 @@ class Room(core_models.TimeStampedModel):
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        self.city = str.capitalize(self.city)
+        super().save(*args, **kwargs)  # Call the real save() method
 
     # Calculates the whole average reviews users wrote.
     def total_rating(self):

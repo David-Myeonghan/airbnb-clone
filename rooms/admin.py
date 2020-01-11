@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.utils.html import mark_safe
 from . import models
 
 
@@ -14,15 +15,22 @@ class ItemAdmin(admin.ModelAdmin):
         # = return obj.room_set.count()
 
 
+class PhotoInline(admin.TabularInline):
+
+    model = models.Photo
+
+
 @admin.register(models.Room)
 class RoomAdmin(admin.ModelAdmin):
 
     """ Room Admin Definition """
 
+    inlines = (PhotoInline,)
+
     fieldsets = (
         (
             "Basic Info",
-            {"fields": ("name", "description", "country", "address", "price")},
+            {"fields": ("name", "description", "country", "city", "address", "price")},
         ),
         ("Times", {"fields": ("check_in", "check_out", "instant_book")},),
         ("Spaces", {"fields": ("guests", "beds", "bedrooms", "baths",)}),
@@ -33,7 +41,7 @@ class RoomAdmin(admin.ModelAdmin):
                 "fields": ("amenities", "facilities", "house_rules",),
             },
         ),
-        ("Last Defails", {"fields": ("host",)}),
+        ("Last Details", {"fields": ("host",)}),
     )
 
     list_display = (
@@ -65,6 +73,11 @@ class RoomAdmin(admin.ModelAdmin):
         "house_rules",
         "country",
     )
+
+    raw_id_fields = ("host",)
+    # gives opportunity to see your foreign key in a better way.
+    # If there are so many users to choose or search, this way would be better.
+
     search_fields = (
         "=city",
         "^host__username",
@@ -80,7 +93,7 @@ class RoomAdmin(admin.ModelAdmin):
         # print(obj.amenities.all()) #shows all amenities in this room
         return obj.amenities.count()
 
-    count_amenities.short_description = "Django Super Customisable"
+    # count_amenities.short_description = "Django Super Customisable"
 
     def count_photos(self, obj):
         return obj.photos.count()
@@ -92,4 +105,11 @@ class PhotoAdmin(admin.ModelAdmin):
 
     """ Photo Admin Definition """
 
-    pass
+    list_display = ("__str__", "get_thumbnail")
+
+    def get_thumbnail(self, obj):
+        # image file is not just a paht. it's one class.
+        return mark_safe(f'<img width="50px" src="{obj.file.url}" />')
+
+    get_thumbnail.short_description = "Thumbnail"
+
