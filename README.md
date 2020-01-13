@@ -151,8 +151,20 @@ git push origin master
     - 'save()' is for the whole model saving, including admin panel.
     - NB. 'save_model()' is just for admin saving. 
 
-# 9 Custom Commands and Seeding
-    # Make custom commands called 'comm' in management folder in any app. 
+# 9 Custom Commands and Seeding (To make fake data)
+    # Make custom commands in management folder in any app. 
     - This will give us the command that I made.
+
+    # Make amenities object using code. (not manually in admin panel)
+    - 'seed_amenities.py' - this will make amenity objects, using command 'python manage.py seed_amenities'.
+    - 'seed_facilities.py' - this creates facilities.
+
+    # Make fake data - using 'django_seed'
+    - install Django-seed 'pipenv install django_seed'
+    - when using seed, refer to https://github.com/Brobin/django-seed/issues/65
+    - 'seed_users.py' creates 50 users. 'python manage.py seed_users --number 50'
+    
+    - 'seed_rooms.py' creates rooms, but Room model cannnot be created without foreign key 'host' and 'room_types. So, lambda(anonymous function in JS) is used to put random numbers of users to create rooms.
+    - To make moderate random number, not like -19285 guests, Use 'random.randint(1,5)' and 'faker' for appropriate address or something.
 
 
