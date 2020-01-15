@@ -46,14 +46,34 @@ class Command(BaseCommand):
         created_clean = flatten(
             list(created_photos.values())
         )  # extract the flattened list([number]) from nested lists.
+
+        amenities = room_models.Amenity.objects.all()
+        facilities = room_models.Facility.objects.all()
+        rules = room_models.HouseRule.objects.all()
+
         for pk in created_clean:
-            room = room_models.Room.objects.get(pk=pk)  # a room instance
-            for i in range(3, random.randint(10, 17)):
+            room = room_models.Room.objects.get(pk=pk)  # a room instance created above
+            for i in range(3, random.randint(10, 30)):  # add photos
                 room_models.Photo.objects.create(
                     caption=seeder.faker.sentence(),
                     file=f"room_photos/{random.randint(1,31)}.webp",
-                    room=room,
+                    room=room,  # manage foreign key
                 )
+            for a in amenities:  # add amenities
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:  # if even,
+                    # manage many to many # the way add something in many to many field.
+                    room.amenities.add(a)
+            for f in facilities:  # add facilities
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:  # if even,
+                    # manage many to many # the way add something in many to many field.
+                    room.facilities.add(f)
+            for r in rules:  # add house rules
+                magic_number = random.randint(0, 15)
+                if magic_number % 2 == 0:  # if even,
+                    # manage many to many # the way add something in many to many field.
+                    room.house_rules.add(r)
         self.stdout.write(self.style.SUCCESS(f"{number} rooms created!"))
 
         # times = options.get("times")

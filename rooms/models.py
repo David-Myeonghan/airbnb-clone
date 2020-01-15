@@ -89,7 +89,6 @@ class Room(core_models.TimeStampedModel):
     )  # related_name = "rooms" -> room type has "rooms"
     facilities = models.ManyToManyField("Facility", related_name="rooms", blank=True)
     house_rules = models.ManyToManyField("HouseRule", related_name="rooms", blank=True)
-    # photo is needed...
 
     def __str__(self):
         return self.name
@@ -98,7 +97,7 @@ class Room(core_models.TimeStampedModel):
         self.city = str.capitalize(self.city)
         super().save(*args, **kwargs)  # Call the real save() method
 
-    # Calculates the whole average reviews users wrote.
+    # Calculates the whole average reviews of one room users wrote.
     def total_rating(self):
         all_reviews = self.reviews.all()
         all_ratings = 0
@@ -106,6 +105,6 @@ class Room(core_models.TimeStampedModel):
             for review in all_reviews:
                 # print(review.accuracy)
                 all_ratings += review.rating_average()
-            return all_ratings / len(all_reviews)
+            return round((all_ratings / len(all_reviews)), 2)
             # = return all_ratings / self.reviews.count()
         return 0

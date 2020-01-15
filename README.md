@@ -166,5 +166,12 @@ git push origin master
     
     - 'seed_rooms.py' creates rooms, but Room model cannnot be created without foreign key 'host' and 'room_types. So, lambda(anonymous function in JS) is used to put random numbers of users to create rooms.
     - To make moderate random number, not like -19285 guests, Use 'random.randint(1,5)' and 'faker' for appropriate address or something.
+    - Need to know that when adding many-to-many field, need to 'add()'
+
+    - 'seed_reviews.py' creates reviews
+    - 'seed_lists.py' creates lists. Create lists first and add rooms later.
+    - No need to make message and conversation
+    - 'seed_reservations.py' creates reservations. starts from today to random(3,25) days.
+
 
 
