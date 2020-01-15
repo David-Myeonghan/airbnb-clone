@@ -4,28 +4,23 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
 # Project
 
-A project consists of several applications.
-Airbnb = Room Management + Review + Users + etc.
+- A project consists of several applications.
+ Airbnb = Room Management + Review + Users + etc.
 
-Describe an application in one sentence, not using 'and'.
-Divide and Conquer.
 
-Create several applications first.
-
+1. Create several applications first.
+- Describe an application in one sentence, not using 'and'. (Divide and Conquer)
 - An application name should be plural, not singular. (rooms, users, reviews, conversations, lists, reservations)
 
-User application substitues the default admin
-
+2. User application substitues the default admin
 - Customising the admin panel using user app model. (+bio)
 
 # Git
+- git add .
+- git commit -m "New"
+- git push origin master
 
-git add .
-git commit -m "New"
-git push origin master
-
-# 3.2
-
+# 3. User App
 - Installed Pillow
 - No need to make migrations and migrate when models are changed. forms are just changed.
 - Instead, need to migrate when fields are added
@@ -36,7 +31,7 @@ git push origin master
 - python manage.py migrate
 - python manage.py createsuperuser
 
-# 4 Room App
+# 4. Room App
 1. to set the Room model, in settings.py in config, Add "rooms.apps.RoomsConfig" in PROJECT_APPS.
 2. set models.py in rooms
 3. set admin.py in rooms
@@ -50,13 +45,13 @@ git push origin master
     - Connected RoomType to a room model using many to many field.
     - (when one needs to be connected, use foreign key. or many things need to be connected, use Many to many field)
 
-# 5 All Other Apps
+# 5. All Other Apps
 1. Set reviews' Model, and review's admin panel
 2. Set reservations' model, and admin panel
 3. Set lists' model, and admin panel
 4. Set conversations' model, and admin panel
 
-# 6 Room admin
+# 6. Room admin
 1. Set RoomAdmin to add (better) filter search (list_display, list_filter, search_fields, filter_horizontal, fieldsets, ordering).
 2. Make count_amenities function
     - A function inside of admin class gets self(RoomAdmin), and obj(current row) as a parameter
@@ -105,7 +100,7 @@ git push origin master
     >>> a = amenity.objects.get(id=1)
     >>> a.room_set.all()
 
-# 8 Admins
+# 8. Admins
     - Make 'related_name' in all models.
     
     - Make more function in users, rooms, reviews admin panel.
@@ -151,7 +146,7 @@ git push origin master
     - 'save()' is for the whole model saving, including admin panel.
     - NB. 'save_model()' is just for admin saving. 
 
-# 9 Custom Commands and Seeding (To make fake data)
+# 9. Custom Commands and Seeding (To make fake data)
     # Make custom commands in management folder in any app. 
     - This will give us the command that I made.
 
@@ -173,5 +168,30 @@ git push origin master
     - No need to make message and conversation
     - 'seed_reservations.py' creates reservations. starts from today to random(3,25) days.
 
+# 10. Views and Urls
+    # URLs is the way we direct request
 
+    # Views are the way we answer to the request
+    - view is a function
 
+    # Urls starts with '/room' will be managed in rooms app. and etc.
+    - urls starts with '/' nothing will be managed in core app.
+    - When using a namespace, Set the app_name attribute in the included app.
+
+    # When we go to views through urls, it creates HttpRequest, and you need to answer this with Httpresponse.
+    - Instead of using Httpresponse manually all the time, we'll use render using template(just an html).
+
+    1. Make 'templates' folder, and make templates
+    - Set templates directory in setting.py
+
+    -When displaying a variable sent from view, use {{something}}
+    -When using a logic, use i.e. {% if %} {% endif %} No need to indent or something.
+
+    2. Make base template and inherit from other html file.
+    - In template, pretending it is in one folder. i.e. {% extends "base.html" %}
+    
+    3. Extend a children template using a 'block' to put something from a parent template.
+    - You can create blocks as many as you want. 
+
+    - Break a big html file into small pieces(Divide and Conquer)
+        - That would be easy to work with CSS.
