@@ -192,6 +192,38 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     
     3. Extend a children template using a 'block' to put something from a parent template.
     - You can create blocks as many as you want. 
-
     - Break a big html file into small pieces(Divide and Conquer)
         - That would be easy to work with CSS.
+
+    4. Only show 10-20 rooms on one page (Pagination)
+        1. Manual page without Django
+            1) limit the number of rooms. i.e. all_rooms = models.Room.objects.all()[:10]. [offset:limit]
+            Django's sequence point is at the end of line..? so, until the next line, current line will not be executed.
+            
+            When QuerySets are evaluated? - Internally, a QuerySet can be constructed, filtered, sliced, and generally passed around without actually hitting the database. No database activity actually occurs until you do something to evaluate the queryset.
+            
+            QuerySets are lazy – the act of creating a QuerySet doesn’t involve any database activity. You can stack filters together all day long, and Django won’t actually run the query until the QuerySet is evaluated. Take a look at this example:
+
+            - everything from the url is 'GET request'
+            - Show which page we are seeing. Show which page is gonna be the last page.
+            - Make arrow 
+            - In Django template, all Python code is not working. If custom logic is needed, pass what you need from the context in python view.
+            - Or, use Django's template filter
+            
+            2) To make previous button, need to know whether there is a previous page.
+
+
+        2. with Django(shortcut)
+            - Use Paginator!
+
+        3. without code.
+
+    # Catch an exception using try and catch.
+
+    # Use 'ListView' to represent a list of objects instead of setting many settings.
+        - no need to render, return or anything on this view, using 'as_view()'
+        - only by configuring model, the 'ListView' know what should be displayd on this view.
+        - hard to know configuration of this view. Refer to here. "ccbv.co.uk"
+        - get 'paginator' for free
+        
+        - "Function based view" -> code should be explicit!, if you wanna see super controll, and see what's going on. vs "Class vased view" -> too easy to use, very flexible, function can be added
