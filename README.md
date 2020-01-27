@@ -151,7 +151,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     - This will give us the command that I made.
 
     # Make amenities object using code. (not manually in admin panel)
-    - 'seed_amenities.py' - this will make amenity objects, using command 'python manage.py seed_amenities'.
+    - 'seed_amenities.py' - this will make amenity objects, using command "python manage.py seed_amenities".
     - 'seed_facilities.py' - this creates facilities.
 
     # Make fake data - using 'django_seed'
@@ -159,6 +159,8 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     - when using seed, refer to https://github.com/Brobin/django-seed/issues/65
     - 'seed_users.py' creates 50 users. 'python manage.py seed_users --number 50'
     
+    - Make room type yourself. shared rooom, hotel room, entire house, private room.
+
     - 'seed_rooms.py' creates rooms, but Room model cannnot be created without foreign key 'host' and 'room_types. So, lambda(anonymous function in JS) is used to put random numbers of users to create rooms.
     - To make moderate random number, not like -19285 guests, Use 'random.randint(1,5)' and 'faker' for appropriate address or something.
     - Need to know that when adding many-to-many field, need to 'add()'
@@ -223,7 +225,62 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     # Use 'ListView' to represent a list of objects instead of setting many settings.
         - no need to render, return or anything on this view, using 'as_view()'
         - only by configuring model, the 'ListView' know what should be displayd on this view.
-        - hard to know configuration of this view. Refer to here. "ccbv.co.uk"
+        - hard to know configuration of this view. Refer to here. "http://ccbv.co.uk"
         - get 'paginator' for free
         
         - "Function based view" -> code should be explicit!, if you wanna see super controll, and see what's going on. vs "Class vased view" -> too easy to use, very flexible, function can be added
+
+# 12. Detail View
+
+    # Make 'room_detail'
+    # Make 'urls.py' inside of the rooms and Set url in order to see the details of specific rooms 'rooms/1'
+    # Refer 'Django path", 'url dispatcher'
+
+    # Get absolute url, using "get_absolute_url" from django provided. 
+     - namespace (in config urls.py) >>> name (in each app's urls.py)
+
+    # Show facilities, amenities, and house rules in 'room_detail' view
+     - Use try and 'except' to handle exception handling invalid room # in urls.
+
+        # Make your own 'not found'(404) page. Browser won't record 404.
+        - Django automatically found andset 404.html and show when 404. 404.html should be at top in templates folder.
+        - Needs to be DEBUG = False in settings.
+    
+    # Change function based view 'room_detail' to class based view.
+     - in <int:pk>, pk is default, so url already knows it.
+
+# 13. Search View
+
+    # Search bar should be on the header.
+        - set search.html and set header.html.
+
+    # Hide search bar in search page by doulbing block. If you are in search page, search bar from base.html won't be displayed.
+
+    # Make <select> of city, country, and room type to search
+        - put them in <form></form>
+
+    # Make price, guest, bed, bedroom, bath search
+        - 'value' in HTML put its value from URL back to select on view.
+
+    # Amenities, Facilities, House rules
+        - Use 'getlist' to get list of selected items
+        - Use 'slugify' filter as 'amenity.pk' is integer and 'selected_amenities' is string.
+
+    # Search or filter like a boss, using Django 'Field lookups' of Queryset API.
+
+    # The Forms API generates all that things for search 'form'.
+        - Make 'forms.py' in an app.
+        - put '{{form}} in search.html
+        - The form field rends widget. Widget is HTML element. Widget can be changed.
+
+    # Country can be selected by importing django_countres.fields import CountryField
+
+    # To make the form remember the select you did, set 'request.GET' in the form in views.py
+        
+        - when we go to /rooms/search directly, it will give you an error, becasue we are giving this form the data.
+        - unbound form: the moment you give the data to form, it will be validated
+        - to be bound form: when somethings's put in the form, this will validate the data, which is connected to data.
+        - So it needs to be checked if something is in the url.
+
+    # The form make HTML, and validate the data clean
+        - Using Python is enough for making web. no need to 

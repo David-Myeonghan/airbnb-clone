@@ -43,7 +43,7 @@ class Command(BaseCommand):
         )
         seeder.execute()
 
-        self.stdout.write(self.style.SUCCESS(f"{number} users created!"))
+        self.stdout.write(self.style.SUCCESS(f"{number} reviews created!"))
 
         # times = options.get("times")
         # for t in range(0, int(times)):

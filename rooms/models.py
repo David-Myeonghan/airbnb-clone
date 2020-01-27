@@ -1,5 +1,6 @@
 # from os # first from Python
 from django.db import models  # second from Django
+from django.urls import reverse
 from django_countries.fields import CountryField  # third from Third-party app
 from core import models as core_models  # fourth from my app.
 
@@ -96,6 +97,11 @@ class Room(core_models.TimeStampedModel):
     def save(self, *args, **kwargs):
         self.city = str.capitalize(self.city)
         super().save(*args, **kwargs)  # Call the real save() method
+
+    def get_absolute_url(self):  # in admin panel, go to the returned url.
+        return reverse(
+            "rooms:detail", kwargs={"pk": self.pk}
+        )  # 'rooms' namespace from urls.py in config
 
     # Calculates the whole average reviews of one room users wrote.
     def total_rating(self):
