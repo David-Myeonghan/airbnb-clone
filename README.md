@@ -283,4 +283,23 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - So it needs to be checked if something is in the url.
 
     # The form make HTML, and validate the data clean
-        - Using Python is enough for making web. no need to 
+        - Using Python is enough for making web. no much efforts on HTML.
+        
+# 14. Login/Logout
+    # Use email as an username.
+
+    # CSRF!
+
+    # Make login form using Django Form
+        - after get, and post method on the LoginView, the typed info should be validated using 'clean_000' method on forms.py
+        - cleaned_data is the result of cleaning all the field
+        - if clean_ method is made, and return nothing, it deletes the typed info
+
+        - Use 'clean' method to validate email and password together, not seperate validating as email(username) and password is dependent each other.
+        - if you use 'clean' method (from forms.py), return(get and use) cleaned_data always (in views.py).
+
+        - Django 'Context processor' can access to cookies, and look for user in cookies and put them in the templates. so, the template can user.is_authenticated.
+
+    # You can use Django LoginView(LoginForm). 
+        - Use 'reverse_lazy' from Django urls to execute the urls, not immediately but when it needs to be.
+        - No need to initiate
