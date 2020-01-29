@@ -303,3 +303,29 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     # You can use Django LoginView(LoginForm). 
         - Use 'reverse_lazy' from Django urls to execute the urls, not immediately but when it needs to be.
         - No need to initiate
+
+# 15. Sign Up
+
+    # Use FormView for easy-making singup
+        1. Get user info from the forms
+        2. Validate these
+        3. save it as an object.
+
+    # Use Django ModelForm to make an object easy.
+        - it already has clean, save method, and also can validate the uniquness of field in a model.
+        - make it commit=False, which is to create an Django object, but put it on DB.
+
+# 16. Email Verification
+    # Using Django sending_email would go to junk box.
+    # Use mailgun, and 'pipenv install django-dotenv' and set EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD on settings and .env
+        - (if you cannot send an email, restart your terminal)
+        - Process: When an user makes an account, send an email with random letter link. 
+        - and, The view which can take the random letter, look for an user from the link, and if there is the email_secret, then, it's verified.
+        
+        - Using Python uuid, make 20 digits hex.
+        - Send string text and html message as well. 'strip_tags()' enables you to send html messaged with html stripped.
+            - some computers don't take html.
+        - Make it template what you wanna send.
+        - Make complete_verification View(function based)
+
+
