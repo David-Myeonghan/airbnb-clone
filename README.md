@@ -329,3 +329,6 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - Make complete_verification View(function based)
 
 
+# 17. Github Login
+    # Any social media supports OAuth, you can do login with this.
+        - Github Login, and Kakao Login.
