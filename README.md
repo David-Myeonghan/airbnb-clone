@@ -332,3 +332,20 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 # 17. Github Login
     # Any social media supports OAuth, you can do login with this.
         - Github Login, and Kakao Login.
+        - when users click a github login, it will redirect to github. if users login and accept application, github will redirect to here back again.
+
+    # Create OAuth app in Github    
+        - 'Authorization callback URL' is where github sends our user back when accepted.
+        - save client id and client secret in .env
+        - in 'github_login view', redirect users to github with setting clientID, clientURI, and scope
+        - in Mode, Add LOGIN_CHOICES, and field 'login_method'
+
+    # When users redirect back to my site,
+        - Githib gives 'code' which can exchange with access_token that is able to access to githib api.
+        - Post the code to the designated url, with the help of 'pipenv install requests'.
+        - The 'code' is valid for 10 minutes and can be used once.
+        - When the code is used twice, then there gonna be an error.
+
+    # Make a request to Github
+        - if you get the access token from the response, request to Github API.
+        - (Make suer your name, email, bio are typed correctly and public in your Github account)
