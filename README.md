@@ -341,7 +341,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - in Mode, Add LOGIN_CHOICES, and field 'login_method'
 
     # When users redirect back to my site,
-        - Githib gives 'code' which can exchange with access_token that is able to access to githib api.
+        - Githib gives 'code' which can exchange with access_token that is able to access to github api.
         - Post the code to the designated url, with the help of 'pipenv install requests'.
         - The 'code' is valid for 10 minutes and can be used once.
         - When the code is used twice, then there gonna be an error.
@@ -349,3 +349,23 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     # Make a request to Github
         - if you get the access token from the response, request to Github API.
         - (Make suer your name, email, bio are typed correctly and public in your Github account)
+
+        - If a user already exists with email, make the user login.
+        - If a user has no account with the email, create a new account.
+        - in Models, add a new field login_method whith login choices.
+
+
+# 18. Kakao Login
+    # Almost same with the github login. Refer to "https://developers.kakao.com/docs/restapi/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8"
+
+    # Get profile image from Kakao.
+        - in modeal Avatar, save profile_image_url using 'save' method, with 'ContentFile' which makes the contect a raw file.
+
+
+    # Instead of using 'forms.ModelForm' in SignUpForm, you can extend this from Django 'UserCreationForm'
+        - don't need to devise all that clean and save method.
+        - you can override Django's default form.
+        - but you need to use 'username' to create an account. Get username typed from users, and label it email as if it's email=username.
+
+        - if you don't want to use UserCreationFrom but want to use password validator, import and use passwordvalidator only.
+

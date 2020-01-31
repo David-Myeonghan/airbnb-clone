@@ -1,4 +1,6 @@
 from django import forms
+from django.contrib.auth import password_validation
+from django.contrib.auth.forms import UserCreationForm
 from . import models
 
 
@@ -31,22 +33,17 @@ class LoginForm(forms.Form):
 class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
-        fields = ("first_name", "last_name", "email")
+        fields = (
+            "first_name",
+            "last_name",
+            "email",
+        )
 
     # first_name = forms.CharField(max_length=80)
     # last_name = forms.CharField(max_length=80)
-    # email = forms.EmailField()
+
     password = forms.CharField(widget=forms.PasswordInput)
     password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
-
-    # def clean_email(self):
-    #     email = self.cleaned_data.get("email")  # get email from the form
-    #     try:
-    #         models.User.objects.get(email=email)  # If the email exists,
-    #         raise forms.ValidationError("User already exists with this email")
-    #         # Error: User Exists
-    #     except models.User.DoesNotExist:  # If the email not exists, good to go.
-    #         return email
 
     def clean_password1(self):
         password = self.cleaned_data.get("password")
@@ -58,18 +55,6 @@ class SignUpForm(forms.ModelForm):
         else:
             return password
 
-    # def save(self):
-    #     first_name = self.cleaned_data.get("first_name")
-    #     last_name = self.cleaned_data.get("last_name")
-    #     email = self.cleaned_data.get("email")
-    #     password = self.cleaned_data.get("password")
-    #     password1 = self.cleaned_data.get("password1")
-
-    #     user = models.User.objects.create_user(email, email, password)
-    #     user.first_name = first_name
-    #     user.last_name = last_name
-    #     user.save()
-
     def save(self, *args, **kwargs):
         user = super().save(commit=False)  # create, but don't save
         email = self.cleaned_data.get("email")
@@ -77,3 +62,44 @@ class SignUpForm(forms.ModelForm):
         user.username = email
         user.set_password(password)
         user.save()
+
+    # password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+
+    # def clean_email(self):
+    #     email = self.cleaned_data.get("email")  # get email from the form
+    #     try:
+    #         models.User.objects.get(email=email)  # If the email exists,
+    #         raise forms.ValidationError("User already exists with this email")
+    #         # Error: User Exists
+    #     except models.User.DoesNotExist:  # If the email not exists, good to go.
+    #         return email
+
+    # def clean_password1(self):
+    #     password = self.cleaned_data.get("password")
+    #     password1 = self.cleaned_data.get("password1")
+
+    #     if password != password1:
+    #         raise forms.ValidationError("Password confirmation does not match")
+
+    #     else:
+    #         return password
+
+    # # def save(self):
+    # #     first_name = self.cleaned_data.get("first_name")
+    # #     last_name = self.cleaned_data.get("last_name")
+    # #     email = self.cleaned_data.get("email")
+    # #     password = self.cleaned_data.get("password")
+    # #     password1 = self.cleaned_data.get("password1")
+
+    # #     user = models.User.objects.create_user(email, email, password)
+    # #     user.first_name = first_name
+    # #     user.last_name = last_name
+    # #     user.save()
+
+    # def save(self, *args, **kwargs):
+    #     user = super().save(commit=False)  # create, but don't save
+    #     email = self.cleaned_data.get("email")
+    #     password = self.cleaned_data.get("password")
+    #     user.username = email
+    #     user.set_password(password)
+    #     user.save()
