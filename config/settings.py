@@ -125,7 +125,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = "/static/"
+STATIC_URL = "/static/"  # this is server url, not directory
+
+# this is actual directory(contents) where you can get when you go to /static/ url.
+STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # because I want to use my user model
 AUTH_USER_MODEL = "users.User"  # in 'users' application, use 'User' model

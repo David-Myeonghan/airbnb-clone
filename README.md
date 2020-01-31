@@ -5,58 +5,63 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 # Project
 
 - A project consists of several applications.
- Airbnb = Room Management + Review + Users + etc.
-
+  Airbnb = Room Management + Review + Users + etc.
 
 1. Create several applications first.
+
 - Describe an application in one sentence, not using 'and'. (Divide and Conquer)
 - An application name should be plural, not singular. (rooms, users, reviews, conversations, lists, reservations)
 
 2. User application substitues the default admin
+
 - Customising the admin panel using user app model. (+bio)
 
 # Git
+
 - git add .
 - git commit -m "New"
 - git push origin master
 
 # 3. User App
+
 - Installed Pillow
 - No need to make migrations and migrate when models are changed. forms are just changed.
 - Instead, need to migrate when fields are added
 
-- when making model, good to migrate only once. 
+- when making model, good to migrate only once.
 
 - python manage.py makemigrations
 - python manage.py migrate
 - python manage.py createsuperuser
 
 # 4. Room App
+
 1. to set the Room model, in settings.py in config, Add "rooms.apps.RoomsConfig" in PROJECT_APPS.
 2. set models.py in rooms
 3. set admin.py in rooms
-4. (before migration) make a 'core' app to manage common model fields. 
-(So that to prevent all common model from 'copy and paste' to all models that need common field('created', 'updated') in otehr apps)
-    - All the other models, except user model, will be extended from 'core' model.
-    - in order not to register 'core' into the DB, add Meta(abstract model, which is the model not go to DB, like AbstractUser in 'users' app).
-5. Set models.py 
-    - Installed django-countries.
-    - Connected user_models, using foreign key, from users app to add a field called host in rooms app.
-    - Connected RoomType to a room model using many to many field.
-    - (when one needs to be connected, use foreign key. or many things need to be connected, use Many to many field)
+4. (before migration) make a 'core' app to manage common model fields.
+   (So that to prevent all common model from 'copy and paste' to all models that need common field('created', 'updated') in otehr apps) - All the other models, except user model, will be extended from 'core' model. - in order not to register 'core' into the DB, add Meta(abstract model, which is the model not go to DB, like AbstractUser in 'users' app).
+5. Set models.py
+   - Installed django-countries.
+   - Connected user_models, using foreign key, from users app to add a field called host in rooms app.
+   - Connected RoomType to a room model using many to many field.
+   - (when one needs to be connected, use foreign key. or many things need to be connected, use Many to many field)
 
 # 5. All Other Apps
+
 1. Set reviews' Model, and review's admin panel
 2. Set reservations' model, and admin panel
 3. Set lists' model, and admin panel
 4. Set conversations' model, and admin panel
 
 # 6. Room admin
+
 1. Set RoomAdmin to add (better) filter search (list_display, list_filter, search_fields, filter_horizontal, fieldsets, ordering).
 2. Make count_amenities function
-    - A function inside of admin class gets self(RoomAdmin), and obj(current row) as a parameter
+   - A function inside of admin class gets self(RoomAdmin), and obj(current row) as a parameter
 
 # If you interact with your project using Django configuration and model?
+
     1. (in your terminal) pipenv shell
     2. python manage.py shell
     3. (from users.models import User)
@@ -67,7 +72,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
     - Use User manager. this gives us the DB-abstraction API(Query set API). NO need to make SQL queries.
     e.g. 'User.objects.all()' gives the list(Query set) that shows all users
-    
+
     >>> all_user = User.objects.all()
     >>> all_user.filter(superhost=True)
     >>> david = User.objects.get(username="david")
@@ -82,8 +87,8 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     - 'related_name' is for Django ORM model. ORM model is for communicating with DB without query.
     - 따라서 몇 가지 related_name을 생성해 줄 때 알아야 할 것이 있다.
     - 폴인키로 연결시켜 놓은 클래스에 related_name = comment라고 해놓으면 user.comment라는 것이 comment모델에 생기는 것이 아나리 comment가 참조하고 있는 user모델에 생긴다.
-    
-    =>>> 따라서 참조해준 객체 입장에서 related_name을 설정해줘야 한다. 
+
+    =>>> 따라서 참조해준 객체 입장에서 related_name을 설정해줘야 한다.
     =>>> 따라서 related_name을 쓸 때는 참조해준 객체 입장에서 생각한다. e.g. count_messages in conversations app.
 
     https://fabl1106.github.io/django/2019/05/27/Django-26.-%EC%9E%A5%EA%B3%A0-related_name-%EC%84%A4%EC%A0%95%EB%B0%A9%EB%B2%95.html
@@ -93,7 +98,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     >>> room = Room.objects.get(pk=1)   # pk = id.
     >>> room.amenities
     >>> room.amenities.all(). gives query set. You can all(), count(), filter(), etc.
-    
+
     - Find all rooms that have shower amenity?
     >>> from rooms.models import Amenity
     >>> Amenity.objects.all()
@@ -101,12 +106,13 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     >>> a.room_set.all()
 
 # 8. Admins
+
     - Make 'related_name' in all models.
-    
+
     - Make more function in users, rooms, reviews admin panel.
     - If you want to use some functions shown to users, not only to admin panel, you can make functions in models
     - The functions for using only in admin panel, make functions in admin panel.
-    
+
     - In reservations app, Make 'total_rating' function that calculates user's average review score.
     - Make 'in_progress' function showing the current date is between check-in and check-out, and 'is_finished'
 
@@ -115,7 +121,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     - In Conversations app, make
     >>> for user in User.objects.all():
     ...     print(user.username)
-    ... 
+    ...
     david
     me
 
@@ -142,12 +148,13 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     - Use 'InlineModelAdmin' to make admin in admin. to edit models on the same page as a parent model.
 
     # Intercept the way of save() method in model. i.e. city: 's'eoul -> make 'S'eoul and save.
-    - Use 'super' when overriding save() method. 
+    - Use 'super' when overriding save() method.
     - 'save()' is for the whole model saving, including admin panel.
-    - NB. 'save_model()' is just for admin saving. 
+    - NB. 'save_model()' is just for admin saving.
 
 # 9. Custom Commands and Seeding (To make fake data)
-    # Make custom commands in management folder in any app. 
+
+    # Make custom commands in management folder in any app.
     - This will give us the command that I made.
 
     # Make amenities object using code. (not manually in admin panel)
@@ -158,7 +165,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     - install Django-seed 'pipenv install django_seed'
     - when using seed, refer to https://github.com/Brobin/django-seed/issues/65
     - 'seed_users.py' creates 50 users. 'python manage.py seed_users --number 50'
-    
+
     - Make room type yourself. shared rooom, hotel room, entire house, private room.
 
     - 'seed_rooms.py' creates rooms, but Room model cannnot be created without foreign key 'host' and 'room_types. So, lambda(anonymous function in JS) is used to put random numbers of users to create rooms.
@@ -171,6 +178,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     - 'seed_reservations.py' creates reservations. starts from today to random(3,25) days.
 
 # 10. Views and Urls
+
     # URLs is the way we direct request
 
     # Views are the way we answer to the request
@@ -191,9 +199,9 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
     2. Make base template and inherit from other html file.
     - In template, pretending it is in one folder. i.e. {% extends "base.html" %}
-    
+
     3. Extend a children template using a 'block' to put something from a parent template.
-    - You can create blocks as many as you want. 
+    - You can create blocks as many as you want.
     - Break a big html file into small pieces(Divide and Conquer)
         - That would be easy to work with CSS.
 
@@ -201,17 +209,17 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         1. Manual page without Django
             1) limit the number of rooms. i.e. all_rooms = models.Room.objects.all()[:10]. [offset:limit]
             Django's sequence point is at the end of line..? so, until the next line, current line will not be executed.
-            
+
             When QuerySets are evaluated? - Internally, a QuerySet can be constructed, filtered, sliced, and generally passed around without actually hitting the database. No database activity actually occurs until you do something to evaluate the queryset.
-            
+
             QuerySets are lazy – the act of creating a QuerySet doesn’t involve any database activity. You can stack filters together all day long, and Django won’t actually run the query until the QuerySet is evaluated. Take a look at this example:
 
             - everything from the url is 'GET request'
             - Show which page we are seeing. Show which page is gonna be the last page.
-            - Make arrow 
+            - Make arrow
             - In Django template, all Python code is not working. If custom logic is needed, pass what you need from the context in python view.
             - Or, use Django's template filter
-            
+
             2) To make previous button, need to know whether there is a previous page.
 
 
@@ -227,7 +235,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - only by configuring model, the 'ListView' know what should be displayd on this view.
         - hard to know configuration of this view. Refer to here. "http://ccbv.co.uk"
         - get 'paginator' for free
-        
+
         - "Function based view" -> code should be explicit!, if you wanna see super controll, and see what's going on. vs "Class vased view" -> too easy to use, very flexible, function can be added
 
 # 12. Detail View
@@ -236,7 +244,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     # Make 'urls.py' inside of the rooms and Set url in order to see the details of specific rooms 'rooms/1'
     # Refer 'Django path", 'url dispatcher'
 
-    # Get absolute url, using "get_absolute_url" from django provided. 
+    # Get absolute url, using "get_absolute_url" from django provided.
      - namespace (in config urls.py) >>> name (in each app's urls.py)
 
     # Show facilities, amenities, and house rules in 'room_detail' view
@@ -245,7 +253,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         # Make your own 'not found'(404) page. Browser won't record 404.
         - Django automatically found andset 404.html and show when 404. 404.html should be at top in templates folder.
         - Needs to be DEBUG = False in settings.
-    
+
     # Change function based view 'room_detail' to class based view.
      - in <int:pk>, pk is default, so url already knows it.
 
@@ -276,7 +284,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     # Country can be selected by importing django_countres.fields import CountryField
 
     # To make the form remember the select you did, set 'request.GET' in the form in views.py
-        
+
         - when we go to /rooms/search directly, it will give you an error, becasue we are giving this form the data.
         - unbound form: the moment you give the data to form, it will be validated
         - to be bound form: when somethings's put in the form, this will validate the data, which is connected to data.
@@ -284,8 +292,9 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
     # The form make HTML, and validate the data clean
         - Using Python is enough for making web. no much efforts on HTML.
-        
+
 # 14. Login/Logout
+
     # Use email as an username.
 
     # CSRF!
@@ -300,7 +309,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
         - Django 'Context processor' can access to cookies, and look for user in cookies and put them in the templates. so, the template can user.is_authenticated.
 
-    # You can use Django LoginView(LoginForm). 
+    # You can use Django LoginView(LoginForm).
         - Use 'reverse_lazy' from Django urls to execute the urls, not immediately but when it needs to be.
         - No need to initiate
 
@@ -316,25 +325,26 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - make it commit=False, which is to create an Django object, but put it on DB.
 
 # 16. Email Verification
+
     # Using Django sending_email would go to junk box.
     # Use mailgun, and 'pipenv install django-dotenv' and set EMAIL_HOST, EMAIL_PORT, EMAIL_HOST_USER, EMAIL_HOST_PASSWORD on settings and .env
         - (if you cannot send an email, restart your terminal)
-        - Process: When an user makes an account, send an email with random letter link. 
+        - Process: When an user makes an account, send an email with random letter link.
         - and, The view which can take the random letter, look for an user from the link, and if there is the email_secret, then, it's verified.
-        
+
         - Using Python uuid, make 20 digits hex.
         - Send string text and html message as well. 'strip_tags()' enables you to send html messaged with html stripped.
             - some computers don't take html.
         - Make it template what you wanna send.
         - Make complete_verification View(function based)
 
-
 # 17. Github Login
+
     # Any social media supports OAuth, you can do login with this.
         - Github Login, and Kakao Login.
         - when users click a github login, it will redirect to github. if users login and accept application, github will redirect to here back again.
 
-    # Create OAuth app in Github    
+    # Create OAuth app in Github
         - 'Authorization callback URL' is where github sends our user back when accepted.
         - save client id and client secret in .env
         - in 'github_login view', redirect users to github with setting clientID, clientURI, and scope
@@ -354,8 +364,8 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - If a user has no account with the email, create a new account.
         - in Models, add a new field login_method whith login choices.
 
-
 # 18. Kakao Login
+
     # Almost same with the github login. Refer to "https://developers.kakao.com/docs/restapi/user-management#%EB%A1%9C%EA%B7%B8%EC%9D%B8"
 
     # Get profile image from Kakao.
@@ -369,3 +379,27 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
         - if you don't want to use UserCreationFrom but want to use password validator, import and use passwordvalidator only.
 
+# 19. Tailwind CSS
+
+    # utility framework
+        - has many CSS property as classes
+        - need less knoweledge about CSS
+        - use Gulp to use tailwind CSS
+
+    # Install tailwindcss
+        - install "autoprefixer", "gulp", "gulp-csso", "gulp-postcss", "gulp-sass", "node-sass", "tailwindcss"
+        - npx tailwind init
+        - set gulpfile.js
+        - make styles.scss in scss in assets folder.
+
+        - in styles.scss, can write sass code and there is a @tailwind directive
+        - everytime you run 'npm run css', it will call gulp i created.
+
+        - the one that we gives to the browser is gonna be static/css/styles.css
+        - 'assets' folder is for programmer.
+        - if you need to edit something, edit it in styles.scss file, not styles.css
+        - and run 'npm run css' to apply what you modified in styles.scss, but not need to when you modify in html tag.
+
+        - make static folder to be exposed to browser.
+        - set 'STATICFILES_DIRS'
+        - add link in base.html
