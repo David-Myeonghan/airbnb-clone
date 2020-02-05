@@ -1,13 +1,13 @@
 from django import forms
-from django.contrib.auth import password_validation
-from django.contrib.auth.forms import UserCreationForm
 from . import models
 
 
 class LoginForm(forms.Form):
 
-    email = forms.EmailField()
-    password = forms.CharField(widget=forms.PasswordInput)
+    email = forms.EmailField(widget=forms.EmailInput(attrs={"placeholder": "Email"}))
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
 
     # def clean_email(self):  # add error, and format the data
     #     email = self.cleaned_data.get("email")
@@ -33,17 +33,31 @@ class LoginForm(forms.Form):
 class SignUpForm(forms.ModelForm):
     class Meta:
         model = models.User
-        fields = (
-            "first_name",
-            "last_name",
-            "email",
-        )
+        fields = ("first_name", "last_name", "email")
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "First Name"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Last Name"}),
+            "email": forms.EmailInput(attrs={"placeholder": "Email Address"}),
+        }
 
     # first_name = forms.CharField(max_length=80)
     # last_name = forms.CharField(max_length=80)
 
-    password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Confirm Password"})
+    )
+
+    def clean_email(self):
+        email = self.cleaned_data.get("email")  # get email from the form
+        try:
+            models.User.objects.get(email=email)  # If the email exists,
+            raise forms.ValidationError("User already exists with this email")
+            # Error: User Exists
+        except models.User.DoesNotExist:  # If the email not exists, good to go.
+            return email
 
     def clean_password1(self):
         password = self.cleaned_data.get("password")
@@ -64,15 +78,6 @@ class SignUpForm(forms.ModelForm):
         user.save()
 
     # password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
-
-    # def clean_email(self):
-    #     email = self.cleaned_data.get("email")  # get email from the form
-    #     try:
-    #         models.User.objects.get(email=email)  # If the email exists,
-    #         raise forms.ValidationError("User already exists with this email")
-    #         # Error: User Exists
-    #     except models.User.DoesNotExist:  # If the email not exists, good to go.
-    #         return email
 
     # def clean_password1(self):
     #     password = self.cleaned_data.get("password")

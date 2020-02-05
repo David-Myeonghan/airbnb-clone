@@ -14,7 +14,6 @@ class LoginView(FormView):
     template_name = "users/login.html"
     form_class = forms.LoginForm
     success_url = reverse_lazy("core:home")
-    initial = {"email": "myeonghan12@gmail.com"}
 
     def form_valid(self, form):
         if form.is_valid():
@@ -59,10 +58,6 @@ class SignUpView(FormView):
     template_name = "users/signup.html"
     form_class = forms.SignUpForm
     success_url = reverse_lazy("core:home")
-    initial = {
-        "first_name": "David",
-        "last_name": "Ryu",
-    }
 
     def form_valid(self, form):  # if the form is valid, which is validated in forms.py,
         form.save()  # then, save the form(create an user)

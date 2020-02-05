@@ -403,3 +403,26 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - make static folder to be exposed to browser.
         - set 'STATICFILES_DIRS'
         - add link in base.html
+
+# 20. Tailwind CSS
+
+    # Size of Tailwind CSS
+        - 'em'  = em 1em. 1 * font size. 2em = 2 * font size.
+        - 'rem' = root em. connected to root font size. By default, root font size is 16. if width= 0.5rem, then (by default) font size is 8px.
+
+    # container
+        - width: 100%, by default.
+
+    # @apply
+        - Instead of long class names, make these into one class including all things using @apply
+        - or, customise and extend by editing tailwind.config.js, if you think there are few lists of word to use in Tailwind class name.
+
+    # responsive design
+        - mobile-first. all property will work on mobiles. and adapt the screen to bigger size. (small screen first -> large screen later)
+        - very easy to make responsive design. when it's large, 'lg: (width)', if's medium, 'md: ...'. No need to small screen as this is mobile-first.
+
+    # Making Errors!
+        - If you're going to make non-field errors, make non_field_errors in html.
+        - Know that how you can create errors when there's errors in manual, and do it in a automatical way using all fields united.
+
+# 21. Django message framework

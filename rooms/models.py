@@ -114,3 +114,8 @@ class Room(core_models.TimeStampedModel):
             return round((all_ratings / len(all_reviews)), 2)
             # = return all_ratings / self.reviews.count()
         return 0
+
+    def first_photo(self):
+        # load query set. and put the content of queryset usign unpacking values(,)
+        (photo,) = self.photos.all()[:1]
+        return photo.file.url  # not query set anymore.

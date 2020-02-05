@@ -48,7 +48,7 @@ class HomeView(ListView):  # class based view
     """ HomeView Definition """
 
     model = models.Room
-    paginate_by = 10
+    paginate_by = 12
     paginate_orphans = 5
     ordering = "created"
     page_kwarg = "page"
@@ -156,11 +156,14 @@ class SearchView(View):
 
                 rooms = paginator.get_page(page)
 
-                return render(request, "rooms/search.html", {"form": form, "rooms": rooms})
+                return render(
+                    request, "rooms/search.html", {"form": form, "rooms": rooms}
+                )
         else:  # when first time, the page is loaded
             form = forms.SearchForm()  # unbound form
 
         return render(request, "rooms/search.html", {"form": form})
+
     # city = request.GET.get("city", "Anywhere")  # Anywhere is default
     # city = str.capitalize(city)
     # country = request.GET.get("country", "KR")
