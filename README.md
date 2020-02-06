@@ -425,4 +425,36 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - If you're going to make non-field errors, make non_field_errors in html.
         - Know that how you can create errors when there's errors in manual, and do it in a automatical way using all fields united.
 
-# 21. Django message framework
+# 21. Django messages framework
+
+     - Kind of one-time notification to users
+     - another HTML template on screens.
+     - use animation to beautify
+
+# 22. User profile view
+
+    # Using DetailView and absolute url
+
+    # get_absolute_url
+        - use this if you want to go to user profile page in Admin panel.
+        - But do not let users changed by typing other users' pk numbers. or something. Don't let the Context changed.
+        - get_context_data. this allows you to get more context data.
+
+
+    # UpdateView
+        - It allows users to change their contents of fields in Model.
+
+        # when uploading files, in form HTML, enctype="multipart/form-data' is needed to upload files.
+
+    # PasswordChangeView
+        - This takes users to admin panel, which is not good.
+        - Make new template.
+
+    # Recommendation
+        - When labelling input fields, use django label, not placeholders
+        - the best thing to control on forms for more controllable is using your own class(model form).
+
+    # To prevent users from accessing to specific urls whom they don't have authority by just typing urls at the address bar on browser,
+    (to stop unauthorised access...)
+        - Use Django SuccessMessageMixin.
+        - Create your own mixins, mixins.py created.
