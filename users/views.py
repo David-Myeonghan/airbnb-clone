@@ -5,6 +5,7 @@ from django.views.generic import FormView, DetailView, UpdateView
 from django.shortcuts import render, redirect, reverse
 from django.urls import reverse_lazy
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 from django.core.files.base import ContentFile
@@ -301,4 +302,25 @@ class UpdatePasswordView(mixins.LoggedInOnlyView, mixins.EmailLoginOnlyView, Suc
 
     def get_success_url(self):
         return self.request.user.get_absolute_url()
+
+# Using Two methods
+# @login_required
+# def start_hosting(request):
+#     request.session['is_hosting'] = True #add is_hosting
+#     return redirect(reverse("core:home"))
+
+# @login_required
+# def stop_hosting(request):
+#     try:
+#         del request.session['is_hosting']
+#     except KeyError:
+#         return redirect(reverse("core:home"))
+
+@login_required
+def switch_hosting(request):
+    try:
+        del request.session['is_hosting'] # user is hosting
+    except KeyError:
+        request.session['is_hosting'] = True # if error, was not hosting, and not wanna hosting
+    return redirect(reverse("core:home"))
 

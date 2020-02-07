@@ -85,6 +85,3 @@ class User(AbstractUser):  # Inheritance: copy and paste AbstractUser into User 
             )
         self.save()
         return
-
-    # def __str__(self):
-    #     return self.username

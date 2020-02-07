@@ -98,7 +98,7 @@ class Room(core_models.TimeStampedModel):
         self.city = str.capitalize(self.city)
         super().save(*args, **kwargs)  # Call the real save() method
 
-    def get_absolute_url(self):  # in admin panel, go to the returned url.
+    def get_absolute_url(self):  # in admin panel, go to the returned url, and get pk
         return reverse(
             "rooms:detail", kwargs={"pk": self.pk}
         )  # 'rooms' namespace from urls.py in config
@@ -116,6 +116,13 @@ class Room(core_models.TimeStampedModel):
         return 0
 
     def first_photo(self):
-        # load query set. and put the content of queryset usign unpacking values(,)
-        (photo,) = self.photos.all()[:1]
-        return photo.file.url  # not query set anymore.
+        try:
+            # load query set. and put the content of queryset using unpacking values(,)
+            (photo,) = self.photos.all()[:1]
+            return photo.file.url  # not query set anymore.
+        except ValueError:
+            return None
+
+    def get_next_four_photos(self):
+        photos = self.photos.all()[1:5]
+        return photos

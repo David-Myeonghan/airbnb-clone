@@ -70,7 +70,9 @@ class SignUpForm(forms.ModelForm):
             return password
 
     def save(self, *args, **kwargs):
-        user = super().save(commit=False)  # create, but don't save
+        user = super().save(
+            commit=False
+        )  # create an object on python not on DB, but don't save so we can modify
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
         user.username = email

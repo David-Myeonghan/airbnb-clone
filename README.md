@@ -458,3 +458,21 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     (to stop unauthorised access...)
         - Use Django SuccessMessageMixin.
         - Create your own mixins, mixins.py created.
+
+# 23. Room Detail
+
+    # Pluralise
+
+    # Use users.Mixins to prevent unauthorised access.
+    # @login_required cheks whether the user is logged in
+
+    # When uploading a photo, it should have a room id.
+        - If you're using CreateView, and need to chage the form, then use FormView.
+
+    # Host/Guest mode (Refer doc. How to use sessions)
+        - Use session. When users logged in, save info in session, and log out, delete them.
+        - to go into the host mode,
+        - to leave the host mode.
+
+    # many-to-many is not saved.
+        - m2m cannot be saved if you didn't save the object
