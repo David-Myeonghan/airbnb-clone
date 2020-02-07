@@ -475,4 +475,19 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - to leave the host mode.
 
     # many-to-many is not saved.
-        - m2m cannot be saved if you didn't save the object
+        - m2m cannot be saved when you didn't save the object(when commit=False)
+        - so save obejct first '.save()' and then call '.save_m2m()'
+
+# 24. Reservation and Reviews
+
+    # Django is not interactive as JS(React)
+        - Make a calendar for two months from this month.
+        - Use Calendar class (cal.py)
+
+    # To check whether the room on specific date is booked or not, Use 'custom template tags and filters'
+        - Make folder 'templatetags'. Do not change folder name.
+        - the filter input goes into the argument of the filter's value, and the filter return(replace) something after filtering.
+        - Load the tag you wanna use in .html template
+
+    # To know which date is booked, check-in/out date is not enough.
+        - need to check each date between check-in/out dates as well . Make it in model.

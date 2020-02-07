@@ -1,8 +1,10 @@
 # from os # first from Python
+from django.utils import timezone
 from django.db import models  # second from Django
 from django.urls import reverse
 from django_countries.fields import CountryField  # third from Third-party app
 from core import models as core_models  # fourth from my app.
+from cal import Calendar
 
 # Created to make room type, amenities, facilities, house rule,... etc. And each item in each class should be easily managed in admin page by non-programmer user.
 class AbstractItem(core_models.TimeStampedModel):
@@ -126,3 +128,14 @@ class Room(core_models.TimeStampedModel):
     def get_next_four_photos(self):
         photos = self.photos.all()[1:5]
         return photos
+
+    def get_calendars(self):
+        now = timezone.now()
+        this_year = now.year
+        this_month = now.month
+        next_month = this_month + 1
+        if this_month == 12:
+            next_month = 1
+        this_month_cal = Calendar(this_year, this_month)
+        next_month_cal = Calendar(this_year, next_month)
+        return [this_month_cal, next_month_cal]
