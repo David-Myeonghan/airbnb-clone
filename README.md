@@ -491,3 +491,13 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
     # To know which date is booked, check-in/out date is not enough.
         - need to check each date between check-in/out dates as well . Make it in model.
+
+    # When user clicks a date on calendar,
+        - Check whether the room exist, if exist, raise an Error.
+        - Check whether the BookedDate does not exist, if not exist, make an reservation.
+        - and then, create an reservation object.
+        - as we don't use JS, cannot make more than one day(very hard..)
+
+    # Reviews from score 1 to 5.
+        - Using MinValueValidator, and MaxValueValidator saves DB from any other score.
+        - Protect form as well using min_value, and max_value.

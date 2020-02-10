@@ -1,4 +1,5 @@
 from django.db import models
+from . import managers
 
 
 class TimeStampedModel(models.Model):
@@ -11,6 +12,9 @@ class TimeStampedModel(models.Model):
     updated = models.DateTimeField(
         auto_now=True
     )  # when a model is updated, the time will be recorded automatically
+
+    # default manager
+    objects = managers.CustomModelManager()
 
     class Meta:
         abstract = True
