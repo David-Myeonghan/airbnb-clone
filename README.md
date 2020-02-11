@@ -534,3 +534,21 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - using Q objects, which is user to hard query(filtering)
 
 # 26. Deploy on AWS
+
+    # Read AWS Doc - Deploying Django.
+
+    # Using AWS Elastic Beanstalk - which makes a pre-configured server for you
+        - Install EBCLI 'pipenv install awsebcli --dev'
+        - eb init
+        - Select region, aws-access-id and secret-key
+        - name, python version
+        - code commit -no
+        - SSH no - yes if you want to modify server directly.
+
+        - make .ebextensions, and add option_settings.
+
+        (- EB will call 'wsgi.py' to run server, not 'python manage.py runserver'.)
+
+        - eb create 'app name'
+
+        -ERROR   Your WSGIPath refers to a file that does not exist.: Bebause EB takes what is in the git commit. config is not committed.
