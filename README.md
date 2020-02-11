@@ -552,3 +552,15 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - eb create 'app name'
 
         -ERROR   Your WSGIPath refers to a file that does not exist.: Bebause EB takes what is in the git commit. config is not committed.
+
+        - recommendation: create one for test, and create another for production.
+
+        - eb deploy
+
+        ---
+        - eb logs shows all logs
+
+        - ModuleNotFoundError: No module named 'django' BEcasue there is no moduele. which is not in pipenv. so, tell EB to install what is in pipenv.
+        - 'pip freeze > requirements.txt', or install pipenv-to-requirements. 'install pipenv-to-requirements --dev'
+        - 'pipenv_to_requirements -f'
+        - AWS EB will find by default 'requirements.txt'
