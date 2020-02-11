@@ -1,5 +1,6 @@
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.utils.translation import gettext_lazy as _
 from django.shortcuts import redirect
 from django.contrib.auth.mixins import UserPassesTestMixin, LoginRequiredMixin
 
@@ -10,21 +11,21 @@ class EmailLoginOnlyView(UserPassesTestMixin):
         return self.request.user.login_method == "email"
 
     def handle_no_permission(self):
-        messages.error(self.request, "Unauthorised!")
+        messages.error(self.request, _("Unauthorised!"))
         return redirect("core:home")
 
 
 # Only loggedout users can see this.
 class LoggedOutOnlyView(UserPassesTestMixin):
 
-    permission_denied_message = "Page Not Found"
+    permission_denied_message = _("Page Not Found")
 
     # If test_func returns true, you can move on to the next page.
     def test_func(self):
         return not self.request.user.is_authenticated
 
     def handle_no_permission(self):
-        messages.error(self.request, "Unauthorised!")
+        messages.error(self.request, _("Unauthorised!"))
         return redirect("core:home")
 
 

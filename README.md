@@ -501,3 +501,36 @@ Cloning Airbnb with Python, Django, Tailwind and more...
     # Reviews from score 1 to 5.
         - Using MinValueValidator, and MaxValueValidator saves DB from any other score.
         - Protect form as well using min_value, and max_value.
+
+# 25. Translations
+
+    # makemessages, compilemessages
+
+        - insettings, LOCALE_PATHS = (os.path.join(BASE_DIR, "locale"),)
+        - 'brew install gettext'
+        - 'brew link gettext --force'
+        - 'django-admin makemessages --locale=ko
+        - and then translate, after install 'gettext' extension.
+
+        - 'django-admin compilemessages'
+        - change language in users' session. language is stored in session.
+
+        - a bit of JS in base.html to select language choice and reload
+
+        - Use 'LocaleMiddleware'
+
+        - When you want to translate block of words, use 'blocktrans'
+        - When you want to translate block of words in MODEL, use 'gettext_lazy as _'
+        - When you want to translate block of words in Messages, use 'gettext_lazy as _'
+
+    # Lists
+        - Add a room into user's favourite list.
+        - using templatetages, check whether a room is in users' list(on_favs.py)
+
+        - in template, using action, using one url, add and remove a room.
+
+    # Conversations
+        - get two participants. user_one: host, user_two: guest
+        - using Q objects, which is user to hard query(filtering)
+
+# 26. Deploy on AWS

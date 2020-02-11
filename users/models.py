@@ -1,4 +1,5 @@
 import uuid
+from django.utils.translation import gettext_lazy as _
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -6,6 +7,7 @@ from django.core.mail import send_mail
 from django.utils.html import strip_tags
 from django.shortcuts import reverse
 from django.template.loader import render_to_string
+from core import managers as core_managers
 
 # This will be translated into SQL language
 class User(AbstractUser):  # Inheritance: copy and paste AbstractUser into User class.
@@ -17,18 +19,18 @@ class User(AbstractUser):  # Inheritance: copy and paste AbstractUser into User 
     GENDER_OTHER = "other"
 
     GENDER_CHOICES = (
-        (GENDER_MALE, "Male"),
-        (GENDER_FEMALE, "Female"),
-        (GENDER_OTHER, "Other"),
+        (GENDER_MALE, _("Male")),
+        (GENDER_FEMALE, _("Female")),
+        (GENDER_OTHER, _("Other")),
     )
 
     LANGUAGE_KOREAN = "kr"
     LANGUAGE_ENGLISH = "en"
 
     LANGUAGE_CHOICES = (
-        (LANGUAGE_KOREAN, "Korean"),
+        (LANGUAGE_KOREAN, _("Korean")),
         # THIS GO TO DB // THIS SHOWN ON THE FORM
-        (LANGUAGE_ENGLISH, "English"),
+        (LANGUAGE_ENGLISH, _("English")),
     )
 
     CURRENCY_USD = "usd"
@@ -47,14 +49,20 @@ class User(AbstractUser):  # Inheritance: copy and paste AbstractUser into User 
     )
 
     avatar = models.ImageField(upload_to="avatars", blank=True)
-    gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
-    bio = models.TextField(blank=True)
+    gender = models.CharField(
+        _("gender"), choices=GENDER_CHOICES, max_length=10, blank=True
+    )
+    bio = models.TextField(_("bio"), blank=True)
     birthdate = models.DateField(blank=True, null=True)
     currency = models.CharField(
         choices=CURRENCY_CHOICES, max_length=3, blank=True, default=CURRENCY_KRW
     )
     language = models.CharField(
-        choices=LANGUAGE_CHOICES, max_length=2, blank=True, default=LANGUAGE_KOREAN
+        _("language"),
+        choices=LANGUAGE_CHOICES,
+        max_length=2,
+        blank=True,
+        default=LANGUAGE_KOREAN,
     )
     superhost = models.BooleanField(default=False)
     email_verified = models.BooleanField(default=False)
@@ -62,6 +70,8 @@ class User(AbstractUser):  # Inheritance: copy and paste AbstractUser into User 
     login_method = models.CharField(
         max_length=50, choices=LOGIN_CHOICES, default=LOGIN_EMAIL
     )
+
+    objects = core_managers.CustomUserManager()
 
     def get_absolute_url(self):
         # from django.core.urlresolvers import reverse
@@ -76,7 +86,7 @@ class User(AbstractUser):  # Inheritance: copy and paste AbstractUser into User 
                 "emails/verify_email.html", {"secret": secret}
             )
             send_mail(
-                "Verify Mybnb Account",
+                _("Verify Mybnb Account"),
                 strip_tags(html_message),
                 settings.EMAIL_HOST_USER,
                 [self.email],
