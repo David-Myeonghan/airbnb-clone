@@ -20,7 +20,7 @@ msgstr ""
 
 #: templates/base.html:27
 msgid "Search by City"
-msgstr "도시 검색"
+msgstr "도시로 검색"
 
 #: templates/partials/footer.html:4
 msgid "All rights reserved. This is not real Airbnb"
@@ -28,7 +28,7 @@ msgstr "권리 소유. 진짜 에어비앤비가 아닙니다"
 
 #: templates/partials/nav.html:16
 msgid "Fav lists"
-msgstr "좋은집 목록"
+msgstr "맘에 드는 집"
 
 #: templates/partials/nav.html:17
 msgid "Profile"

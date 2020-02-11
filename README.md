@@ -564,3 +564,4 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - 'pip freeze > requirements.txt', or install pipenv-to-requirements. 'install pipenv-to-requirements --dev'
         - 'pipenv_to_requirements -f'
         - AWS EB will find by default 'requirements.txt'
+        - and then eb deploy.

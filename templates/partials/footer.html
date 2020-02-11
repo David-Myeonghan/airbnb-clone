@@ -1,9 +1,9 @@
 {% load i18n %}
-<footer class="container mx-auto text-center py-10 border-t font-medium text-gray-500">
+<footer class="container xl:w-full lg:w-5/12 md:w-1/2 md:p-200 mx-auto text-center py-30 border-t font-medium text-gray-500">
 	<div>
 		<span>&copy; 2020 Mybnb, Inc. {% trans "All rights reserved. This is not real Airbnb" %}.</span>
 	</div>
-	<div class="mt-10 flex">
+	<div class="mt-10">
 		{% get_current_language as LANGUAGE_CODE %}
 		<select class="w-1/5 h-8" id="js-lang">
 			<option value="en" 

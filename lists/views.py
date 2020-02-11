@@ -19,4 +19,5 @@ def toggle_room(request, room_pk):
 
 
 class SeeFavsView(TemplateView):
+    model = models.List
     template_name = "lists/list_detail.html"
