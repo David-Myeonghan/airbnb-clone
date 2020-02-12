@@ -576,3 +576,6 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - Add uninstalled package by creating packages.config
 
         - in AWS DB, set security group by adding a role for EB
+        - and add environment properties in AWS configuration.
+
+        - In AWS DB, need to migrate. Add container commands in 02-django.config
