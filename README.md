@@ -579,3 +579,5 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - and add environment properties in AWS configuration.
 
         - In AWS DB, need to migrate. Add container commands in 02-django.config
+
+        - when Debug is false, need to sentry.io. Set sentry in settings.py
