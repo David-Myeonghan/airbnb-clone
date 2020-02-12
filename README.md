@@ -572,3 +572,7 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
         - make database RDS on AWS, using postgresql
         - after making db, read django db postgresql doc.
+
+        - Add uninstalled package by creating packages.config
+
+        - in AWS DB, set security group by adding a role for EB
