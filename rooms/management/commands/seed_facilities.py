@@ -17,8 +17,7 @@ class Command(BaseCommand):
             "Gym",
         ]
         
-        if Facility.objects.count() != 0:
-
+        if Facility.objects.count() == 0:
             for f in facilities:
                 Facility.objects.create(name=f)
             self.stdout.write(self.style.SUCCESS(f"{len(facilities)} facilities created!"))

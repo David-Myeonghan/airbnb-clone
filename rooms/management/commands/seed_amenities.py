@@ -56,7 +56,7 @@ class Command(BaseCommand):
             "TV",
         ]
 
-        if Amenity.objects.count() != 0:
+        if Amenity.objects.count() == 0:
             for a in amenities:
                 Amenity.objects.create(name=a)
                 # room_models.Amenity.objects.create(name=a) # if used alternative import.
