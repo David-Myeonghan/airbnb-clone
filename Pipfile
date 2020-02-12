@@ -17,6 +17,7 @@ django-seed = "*"
 django-dotenv = "*"
 requests = "*"
 sentry-sdk = "==0.14.1"
+psycopg2 = "*"
 
 [requires]
 python_version = "3.7"
