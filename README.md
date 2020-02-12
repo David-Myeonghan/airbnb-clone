@@ -578,6 +578,8 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - in AWS DB, set security group by adding a role for EB
         - and add environment properties in AWS configuration.
 
-        - In AWS DB, need to migrate. Add container commands in 02-django.config
+        - In AWS DB, need to migrate. Add container commands in 02-django.config. name=postgres.
 
         - when Debug is false, need to sentry.io. Set sentry in settings.py
+
+        - Create superuser using container command
