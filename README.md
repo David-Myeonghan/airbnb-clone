@@ -596,3 +596,6 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - 'python manage.py collectstatic' to upload files to S3.
 
         - set container-commands for save files into S3 when uploading.
+
+    # Django Imagemagick
+        - allows to change the photo format. (To make file size smaller)

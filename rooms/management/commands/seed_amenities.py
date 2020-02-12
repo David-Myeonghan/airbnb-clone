@@ -56,10 +56,14 @@ class Command(BaseCommand):
             "TV",
         ]
 
-        for a in amenities:
-            Amenity.objects.create(name=a)
-            # room_models.Amenity.objects.create(name=a) # if used alternative import.
-        self.stdout.write(self.style.SUCCESS("Amenities created!"))
+        if Amenity.objects.count() != 0:
+            for a in amenities:
+                Amenity.objects.create(name=a)
+                # room_models.Amenity.objects.create(name=a) # if used alternative import.
+            self.stdout.write(self.style.SUCCESS("Amenities created!"))
+        else:
+            self.stdout.write(self.style.SUCCESS("Amenities exist!"))
+
 
         # times = options.get("times")
         # for t in range(0, int(times)):
