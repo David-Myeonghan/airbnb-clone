@@ -567,10 +567,9 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - and then eb deploy.
 
         -- will use postgresql
-
         - green and blue
 
-        - make database RDS on AWS, using postgresql
+        # make database RDS on AWS, using postgresql
         - after making db, read django db postgresql doc.
 
         - Add uninstalled package by creating packages.config
@@ -583,3 +582,17 @@ Cloning Airbnb with Python, Django, Tailwind and more...
         - when Debug is false, need to sentry.io. Set sentry in settings.py
 
         - Create superuser using container command
+
+        - admin panel is ugly.
+        # don't want my server to serve my static files including admin static files.
+        - use S3. for storaging your files. allows cache so that user don't need to download files.
+
+        -everytime eb delpoy, uploaded files will be deleted as we're just uploading new server. -> save files in different server
+
+        - Need to Set to save static, uploads files in S#.
+
+        - Install 'django-storages' refer to doc.
+        - Set environmental properties.
+        - 'python manage.py collectstatic' to upload files to S3.
+
+        - set container-commands for save files into S3 when uploading.

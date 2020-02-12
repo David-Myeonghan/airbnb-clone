@@ -6,7 +6,6 @@ verify_ssl = true
 [dev-packages]
 flake8 = "*"
 black = "*"
-awsebcli = "*"
 pipenv-to-requirements = "*"
 
 [packages]
@@ -17,7 +16,9 @@ django-seed = "*"
 django-dotenv = "*"
 requests = "*"
 sentry-sdk = "==0.14.1"
-psycopg2 = "*"
+django-storages = "*"
+psycopg2-binary = "*"
+boto3 = "*"
 
 [requires]
 python_version = "3.7"
