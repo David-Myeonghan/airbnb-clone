@@ -555,13 +555,20 @@ Cloning Airbnb with Python, Django, Tailwind and more...
 
         - recommendation: create one for test, and create another for production.
 
-        - eb deploy
+        - 'eb deploy'
 
         ---
-        - eb logs shows all logs
+        - 'eb logs' shows all logs
 
         - ModuleNotFoundError: No module named 'django' BEcasue there is no moduele. which is not in pipenv. so, tell EB to install what is in pipenv.
         - 'pip freeze > requirements.txt', or install pipenv-to-requirements. 'install pipenv-to-requirements --dev'
         - 'pipenv_to_requirements -f'
         - AWS EB will find by default 'requirements.txt'
         - and then eb deploy.
+
+        -- will use postgresql
+
+        - green and blue
+
+        - make database RDS on AWS, using postgresql
+        - after making db, read django db postgresql doc.
